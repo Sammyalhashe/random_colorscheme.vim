@@ -2,6 +2,8 @@
 
 Load a random colorscheme for every new (neo)vim session.
 
+<img src="screenrecording.gif" width="250" height="250">
+
 ## Installation
 
 - This plugin needs (neo)vim to be compiled with either python2 or python3.
