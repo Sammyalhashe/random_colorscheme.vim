@@ -2,7 +2,7 @@
 
 Load a random colorscheme for every new (neo)vim session.
 
-<img src="screenrecording.gif" width="500" height="400">
+<img src="screenrecording.gif" width="600" height="600">
 
 ## Installation
 
