@@ -38,3 +38,6 @@ Load a random colorscheme for every new (neo)vim session.
 | `g:colorscheme_airline_correlation` | If you like similar colorschemes and Airline themes to load together, place them in the same indices in the above options. | 0                                             |
 
 NOTE: the `g:colorscheme_airline_correlation` option will not work unless `len(g:available_colorschemes) == len(g:available_airline_themes)`.
+
+## Default Mappings
+`<leader>co` is mapped to change color randomly on command
