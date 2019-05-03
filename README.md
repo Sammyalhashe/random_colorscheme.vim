@@ -38,6 +38,7 @@ Load a random colorscheme for every new (neo)vim session.
 | `g:available_colorschemes`          | The list of colorschemes that will randomly load                                                                           | ['blue', 'delek', 'desert', 'morning', 'ron'] |
 | `g:available_airline_themes`        | The list of Airline themes that will randomly load                                                                         | ['dark']                                      |
 | `g:colorscheme_airline_correlation` | If you like similar colorschemes and Airline themes to load together, place them in the same indices in the above options. | 0                                             |
+| `g:environment_theme` | This option is useful if you want to sync your vim colorscheme to your environment. Make sure the environment variable `$RANDOM_THEME` is set to a value in between 0 and the length of `g:available_colorschemes` | 0                                             |
 
 NOTE: the `g:colorscheme_airline_correlation` option will not work unless `len(g:available_colorschemes) == len(g:available_airline_themes)`.
 
