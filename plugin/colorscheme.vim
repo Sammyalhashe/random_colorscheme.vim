@@ -31,6 +31,11 @@ let g:airline_integration = get(g:, 'airline_integration', 0)
 let g:colorscheme_airline_correlation = get(g:, 'colorscheme_airline_correlation', 0)
 let g:available_colorschemes = get(g:, 'available_colorschemes', ['blue', 'delek', 'desert', 'morning', 'ron'])
 let g:available_airline_themes = get(g:, 'available_airline_themes', ['dark'])
+let g:clearLineNr = get(g:, 'clearLineNr', 0)
+
+if !exists("g:loaded_airline")
+    let g:airline_integration = 0
+endif
 " }}
 
 " {{ Make sure it can actually run
@@ -101,6 +106,12 @@ function! Init(index, a_index, inside) abort
             endtry
         endif
         exec 'colorscheme ' . g:scheme   
+    
+        if g:clearLineNr
+            highlight clear LineNr
+            highlight clear SignColumn
+        endif
+
         return [s:idx, s:aidx]
     endif
     return [-1, -1]
