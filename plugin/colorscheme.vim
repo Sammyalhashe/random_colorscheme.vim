@@ -125,8 +125,8 @@ let g:indicies = Init(-1, -1, 0)
 
 " {{ change color randomly on command
 function! ChangeColour() abort
-    echomsg string("ChangeColour called")    
     let g:indicies = Init(g:indicies[0], g:indicies[1], 1)
+    echo "\rTheme: " . g:colors_name
 endfunction
 
 nnoremap <leader>co :call ChangeColour()<cr>
