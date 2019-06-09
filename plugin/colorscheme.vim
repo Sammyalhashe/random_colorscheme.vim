@@ -33,7 +33,7 @@ let g:available_colorschemes = get(g:, 'available_colorschemes', ['blue', 'delek
 let g:available_airline_themes = get(g:, 'available_airline_themes', ['dark'])
 let g:clearLineNr = get(g:, 'clearLineNr', 0)
 
-if !exists("g:loaded_airline")
+if !exists("g:loaded_airline") && !exists("g:crystalline_tabline_fn")
     let g:airline_integration = 0
 endif
 " }}
@@ -93,14 +93,24 @@ function! Init(index, a_index, inside) abort
             if s:env_theme_num > len(g:available_colorschemes) - 1
                 let g:scheme = g:default_theme
             endif
-            let g:airline_theme = g:available_airline_themes[s:aidx]
+            if exists("g:loaded_airline")
+                let g:airline_theme = g:available_airline_themes[s:aidx]
+            endif
+            if exists("g:crystalline_tabline_fn")
+                let g:crystalline_theme = g:available_airline_themes[s:aidx]
+            endif
             let g:scheme = g:available_colorschemes[s:env_theme_num]
         else
             try
                 " colorscheme space-vim-dark
                 let g:scheme = g:default_theme
                 if g:airline_integration
-                    let g:airline_theme = g:default_theme_airline
+                    if exists("g:loaded_airline")
+                        let g:airline_theme = g:default_theme_airline
+                    endif
+                    if exists("g:crystalline_tabline_fn")
+                        let g:crystalline_theme = g:default_theme_airline
+                    endif
                 endif
             catch
             endtry
