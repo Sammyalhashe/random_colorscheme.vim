@@ -22,7 +22,7 @@ endfunction
 " }}
 
 " {{ default settings
-let g:random_disabled = get(g:, 'random_disabled', 0)
+let g:random_disabled = get(g:, 'random_disabled', 1)
 let g:environment_theme = get(g:, 'environment_theme', 0)
 let g:random_scheme = get(g:, 'random_scheme', 1)
 let g:default_theme_airline = get(g:, 'default_theme_airline', 'dark')
@@ -71,63 +71,63 @@ function! Init(index, a_index, inside) abort
         let s:aidx = s:idx
     endif
 
-    if !g:random_disabled
-        if g:random_scheme || a:inside
-            try 
-                let g:scheme = g:available_colorschemes[s:idx]    
-                if g:airline_integration
-                    let g:airline_theme = g:available_airline_themes[s:aidx]
-                endif
-            catch
-                echo g:available_colorschemes[s:idx]    
-            endtry
-        elseif g:environment_theme && !g:random_scheme
-            if $RANDOM_THEME
-                let s:env_theme_num = $RANDOM_THEME
-            else
-                let s:env_theme_num = 0
-            endif
-            if g:colorscheme_airline_correlation && s:env_theme_num < len(g:available_airline_themes)
-                let s:aidx = s:env_theme_num
-            endif
-            if s:env_theme_num > len(g:available_colorschemes) - 1
-                let g:scheme = g:default_theme
-            endif
-            if exists("g:loaded_airline")
+    if g:random_scheme || a:inside
+        try 
+            let g:scheme = g:available_colorschemes[s:idx]    
+            if g:airline_integration
                 let g:airline_theme = g:available_airline_themes[s:aidx]
             endif
-            if exists("g:crystalline_tabline_fn")
-                let g:crystalline_theme = g:available_airline_themes[s:aidx]
-            endif
-            let g:scheme = g:available_colorschemes[s:env_theme_num]
+        catch
+            echo g:available_colorschemes[s:idx]    
+        endtry
+    elseif g:environment_theme && !g:random_scheme
+        if $RANDOM_THEME
+            let s:env_theme_num = $RANDOM_THEME
         else
-            try
-                " colorscheme space-vim-dark
-                let g:scheme = g:default_theme
-                if g:airline_integration
-                    if exists("g:loaded_airline")
-                        let g:airline_theme = g:default_theme_airline
-                    endif
-                    if exists("g:crystalline_tabline_fn")
-                        let g:crystalline_theme = g:default_theme_airline
-                    endif
+            let s:env_theme_num = 0
+        endif
+        if g:colorscheme_airline_correlation && s:env_theme_num < len(g:available_airline_themes)
+            let s:aidx = s:env_theme_num
+        endif
+        if s:env_theme_num > len(g:available_colorschemes) - 1
+            let g:scheme = g:default_theme
+        endif
+        if exists("g:loaded_airline")
+            let g:airline_theme = g:available_airline_themes[s:aidx]
+        endif
+        if exists("g:crystalline_tabline_fn")
+            let g:crystalline_theme = g:available_airline_themes[s:aidx]
+        endif
+        let g:scheme = g:available_colorschemes[s:env_theme_num]
+    else
+        try
+            " colorscheme space-vim-dark
+            let g:scheme = g:default_theme
+            if g:airline_integration
+                if exists("g:loaded_airline")
+                    let g:airline_theme = g:default_theme_airline
                 endif
-            catch
-            endtry
-        endif
-        exec 'colorscheme ' . g:scheme   
-    
-        if g:clearLineNr
-            highlight clear LineNr
-            highlight clear SignColumn
-        endif
-
-        return [s:idx, s:aidx]
+                if exists("g:crystalline_tabline_fn")
+                    let g:crystalline_theme = g:default_theme_airline
+                endif
+            endif
+        catch
+        endtry
     endif
-    return [-1, -1]
+    exec 'colorscheme ' . g:scheme   
+
+    if g:clearLineNr
+        highlight clear LineNr
+        highlight clear SignColumn
+    endif
+
+    return [s:idx, s:aidx]
 endfunction
 
-let g:indicies = Init(-1, -1, 0)
+let g:indicies = [-1, -1]
+if !g:random_disabled
+    let g:indicies = Init(-1, -1, 0)
+endif
 
 " }}
 
